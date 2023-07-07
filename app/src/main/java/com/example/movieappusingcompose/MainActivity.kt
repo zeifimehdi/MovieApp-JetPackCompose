@@ -4,39 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.movieappusingcompose.navigation.MovieNavigation
 import com.example.movieappusingcompose.ui.theme.MovieAppUsingComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,14 +14,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
            MyApp {
-               MainContent()
+               MovieNavigation()
            }
         }
     }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyApp(content: @Composable () -> Unit){
     MovieAppUsingComposeTheme {
@@ -60,85 +29,11 @@ fun MyApp(content: @Composable () -> Unit){
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun MainContent(movieList : List<String> = listOf(
-    "Happy feet",
-    "Hello World",
-    "Happiness",
-    "Be Happy",
-    "Wild Life",
-    "Happiness overloaded",
-)){
-    Scaffold(topBar = {
-        TopAppBar(title = {
-            Text(text = "Movie App")
-        }, colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            titleContentColor = Color.White,)
-        )
-    }, content = {
-        Column(
-            modifier = Modifier
-                .padding(it)
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-
-            LazyColumn(){
-               items(movieList){
-                   ItemRow(it)
-               }
-            }
-        }
-    })
-
-}
-
-@Composable
-fun ItemRow(item : String){
-
-    Card(modifier = Modifier
-        .padding(5.dp)
-        .fillMaxWidth()
-        .height(150.dp),
-        shape = RoundedCornerShape(corner = CornerSize(15.dp)),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        ),
-        colors = CardDefaults.cardColors(
-            Color.DarkGray
-        )
-
-    ) {
-
-        Row(modifier = Modifier
-            .padding(5.dp)
-            .fillMaxSize(),
-            Arrangement.Start,
-            Alignment.CenterVertically) {
-            Surface(modifier = Modifier
-                .padding(5.dp)
-                .size(100.dp)
-            ) {
-                Icon(imageVector = Icons.Default.AccountBox, contentDescription = "movie image")
-            }
-
-            Text(text = item , modifier = Modifier.padding(start = 10.dp),
-            style = TextStyle(color = Color.White, fontSize = 12.sp)
-            )
-        }
-    }
-}
-
-
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyApp{
-        MainContent()
+
     }
 
 }
